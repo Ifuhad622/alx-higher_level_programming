@@ -1,37 +1,24 @@
 #!/usr/bin/python3
-"""basegeometryclass"""
+"""
+more class base
+"""
 
 
-class BaseGeometry:
-
-    def area(self):
-        """raises exception"""
-        raise Exception("area() is not implemented")
-
-    def integer_validator(self, name, value):
-        """validates value for integer and positive"""
-        if type(value) != int:
-            raise TypeError("{} must be an integer".format(name))
-        if value <= 0:
-            raise ValueError("{} must be greater than 0".format(name))
-
-
-"""class rectangle"""
+BaseGeometry = __import__('7-base_geometry').BaseGeometry
 
 
 class Rectangle(BaseGeometry):
-    """creates rectangle class"""
+    """ definition of a Rectangle """
     def __init__(self, width, height):
-        """initializes rectangle"""
-        if not super().integer_validator("width", width):
-            self.__width = width
-        if not super().integer_validator("height", height):
-            self.__height = height
+        """ constructor and width, height"""
+        self.__width = width
+        self.__height = height
+        BaseGeometry.integer_validator(self, "width", self.__width)
+        BaseGeometry.integer_validator(self, "height", self.__height)
 
     def area(self):
-        """returns area"""
         return self.__width * self.__height
 
     def __str__(self):
-        """returns string"""
-        return "[Rectangle] {}/{}".format(self.__width, self.__height)<F11>
+        """ print """
+        return ("[Rectangle] " + str(self.__width) + "/" + str(self.__height))

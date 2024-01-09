@@ -7,4 +7,4 @@ class MyList(list):
 
     def print_sorted(self):
         """prints the sorted"""
-        print(sorted(self))<F11><F11><F11><F11><F11>
+        print(sorted(self))
