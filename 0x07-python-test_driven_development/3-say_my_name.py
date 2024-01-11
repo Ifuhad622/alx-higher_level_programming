@@ -1,25 +1,34 @@
 #!/usr/bin/python3
-"""Module for say_my_name method."""
+"""Defines a matrix division function."""
 
 
-def say_my_name(first_name, last_name=""):
-    """Method for printing first and last name.
-
+def matrix_divided(matrix, div):
+    """Divide all elements of a matrix.
     Args:
-        first_name: first name string.
-        last_name: last name string.
-
+        matrix (list): A list of lists of ints or floats.
+        div (int/float): The divisor.
     Raises:
-        TypeError: If first_name or last_name are not strings.
+        TypeError: If the matrix contains non-numbers.
+        TypeError: If the matrix contains rows of different sizes.
+        TypeError: If div is not an int or float.
+        ZeroDivisionError: If div is 0.
+    Returns:
+        A new matrix representing the result of the division.
     """
-    if not isinstance(first_name, str):
-        raise TypeError("first_name must be a string")
+    if (not isinstance(matrix, list) or matrix == [] or
+            not all(isinstance(row, list) for row in matrix) or
+            not all((isinstance(ele, int) or isinstance(ele, float))
+                    for ele in [num for row in matrix for num in row])):
+        raise TypeError("matrix must be a matrix (list of lists) of "
+                        "integers/floats")
 
-    if not isinstance(last_name, str):
-        raise TypeError("last_name must be a string")
+    if not all(len(row) == len(matrix[0]) for row in matrix):
+        raise TypeError("Each row of the matrix must have the same size")
 
-    print("My name is {:s} {:s}".format(first_name, last_name))
+    if not isinstance(div, int) and not isinstance(div, float):
+        raise TypeError("div must be a number")
 
-if __name__ == "__main__":
-    import doctest
-    doctest.testfile("tests/3-say_my_name.txt")<F11>
+    if div == 0:
+        raise ZeroDivisionError("division by zero")
+
+    return ([list(map(lambda x: round(x / div, 2), row)) for row in matrix])
